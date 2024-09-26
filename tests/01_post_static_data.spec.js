@@ -1,9 +1,10 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-//test case 1
+// Define a test case 
 test('should be able to create a booking', async ({ request }) => {
-    const response = await request.post(`/booking`, {
+    // Send a POST request to the /booking endpoint
+    const response  = await request.post(`/booking`, {
         data: {
             "firstname": "Jim",
             "lastname": "Brown",
@@ -16,9 +17,12 @@ test('should be able to create a booking', async ({ request }) => {
             "additionalneeds": "Breakfast"
         }
     });
+    // Log the response body
     console.log(await response.json());
+    // Assertions for the response
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
+    // Verify the response body
     const responseBody = await response.json()
     expect(responseBody.booking).toHaveProperty("firstname", "Jim");
     expect(responseBody.booking).toHaveProperty("lastname", "Brown");
